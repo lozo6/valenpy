@@ -25,9 +25,9 @@ display = Adafruit_SSD1680Z(122, 250,
 
 # initialize buttons
 up_button = digitalio.DigitalInOut(board.D5)
-up_button.switch_to_input(pull=digitalio.Pull.UP)
+up_button.switch_to_input()
 down_button = digitalio.DigitalInOut(board.D6)
-down_button.switch_to_input(pull=digitalio.Pull.UP)
+down_button.switch_to_input()
 
 # rotating for landscape
 display.rotation = 1
