@@ -4,6 +4,8 @@ import board
 from PIL import Image, ImageDraw, ImageFont
 from adafruit_epd.ssd1680 import Adafruit_SSD1680Z
 
+import time
+
 # create the spi device and pins we will need
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 ecs = digitalio.DigitalInOut(board.CE0)
@@ -24,9 +26,9 @@ display = Adafruit_SSD1680Z(122, 250,
 
 # initialize buttons
 up_button = digitalio.DigitalInOut(board.D6)
-up_button.switch_to_input()
+up_button.switch_to_input(pull=digitalio.Pull.UP)
 down_button = digitalio.DigitalInOut(board.D5)
-down_button.switch_to_input()
+down_button.switch_to_input(pull=digitalio.Pull.UP)
 
 # rotating for landscape
 display.rotation = 1
@@ -101,6 +103,7 @@ def main():
 
                 # Display the new image
                 display_image(images[current_image])
+                time.sleep(0.2)
 
             if not down_button.value:  # Down button pressed
                 if current_image == 7:
@@ -115,6 +118,7 @@ def main():
 
                 # Display the new image
                 display_image(images[current_image])
+                time.sleep(0.2)
 
     except KeyboardInterrupt:
         print("\nScript interrupted by user. Exiting cleanly.")
