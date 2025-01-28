@@ -1,4 +1,3 @@
-import time
 import digitalio
 import busio
 import board
@@ -100,7 +99,6 @@ def main():
 
                 # Display the new image
                 display_image(images[current_image])
-                time.sleep(0.2)  # Debounce delay
 
             if not down_button.value:  # Down button pressed
                 print("Down Button Pushed")
@@ -116,7 +114,6 @@ def main():
 
                 # Display the new image
                 display_image(images[current_image])
-                time.sleep(0.2)  # Debounce delay
 
     except KeyboardInterrupt:
         print("\nScript interrupted by user. Exiting cleanly.")
