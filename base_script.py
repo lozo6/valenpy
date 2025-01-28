@@ -89,7 +89,6 @@ image = image.crop((x, y, x + display.width, y + display.height)).convert("RGB")
 #image = image.convert("1").convert("L")
 
 display.fill(Adafruit_EPD.WHITE)
-display.pixel(10, 100, Adafruit_EPD.BLACK)
 
 # Display image.
 display.image(image)
