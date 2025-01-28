@@ -9,9 +9,9 @@ from adafruit_epd.ssd1680 import Adafruit_SSD1680Z
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 ecs = digitalio.DigitalInOut(board.CE0)
 dc = digitalio.DigitalInOut(board.D22)
-srcs = None
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
+srcs = None
 
 # initialize display
 display = Adafruit_SSD1680Z(122, 250,
@@ -24,9 +24,9 @@ display = Adafruit_SSD1680Z(122, 250,
 )
 
 # initialize buttons
-up_button = digitalio.DigitalInOut(board.D5)
+up_button = digitalio.DigitalInOut(board.D6)
 up_button.switch_to_input()
-down_button = digitalio.DigitalInOut(board.D6)
+down_button = digitalio.DigitalInOut(board.D5)
 down_button.switch_to_input()
 
 # rotating for landscape
