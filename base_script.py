@@ -67,7 +67,7 @@ display.rotation = 1
 
 # ---
 
-image = Image.open("images/valentine.png")
+image = Image.open("images/7.png")
 
 # Scale the image to the smaller screen dimension
 image_ratio = image.width / image.height

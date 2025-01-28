@@ -48,6 +48,9 @@ def transform(image):
     # return transformed image
     return image
 
+def main():
+    pass
+
 if __name__ == "__main__":
     # load image
     image = Image.open("images/valentine.png")
