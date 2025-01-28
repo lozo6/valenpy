@@ -1,3 +1,4 @@
+import time
 import digitalio
 import busio
 import board
@@ -13,7 +14,7 @@ rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
 
 # initialize display
-display = Adafruit_SSD1680Z(122, 250,        # 2.13" HD mono display
+display = Adafruit_SSD1680Z(122, 250,
     spi,
     cs_pin=ecs,
     dc_pin=dc,
@@ -22,10 +23,20 @@ display = Adafruit_SSD1680Z(122, 250,        # 2.13" HD mono display
     busy_pin=busy,
 )
 
+# initialize buttons
+up_button = digitalio.DigitalInOut(board.D5)
+up_button.switch_to_input(pull=digitalio.Pull.UP)
+down_button = digitalio.DigitalInOut(board.D6)
+down_button.switch_to_input(pull=digitalio.Pull.UP)
+
 # rotating for landscape
 display.rotation = 1
 
-# transform image
+# List of images to display
+images = ["images/1.png", "images/2.png"]
+current_image_index = 0
+
+# Function to transform image
 def transform(image):
     # Scale the image to the smaller screen dimension
     image_ratio = image.width / image.height
@@ -40,22 +51,41 @@ def transform(image):
 
     x = scaled_width // 2 - display.width // 2
     y = scaled_height // 2 - display.height // 2
-    image = image.crop((x, y, x + display.width, y + display.height)).convert("RGB")
+    image = image.crop((x, y, x + display.width, y + display.height))
 
     # Convert to Monochrome and Add dithering
-    image = image.convert("1").convert("L")
+    image = image.convert("1", dither=Image.FLOYDSTEINBERG)
 
-    # return transformed image
+    # Return transformed image
     return image
 
+# Function to display an image
+def display_image(image_path):
+    image = Image.open(image_path)
+    transformed_image = transform(image)
+    display.image(transformed_image)
+    display.display()
+
 def main():
-    pass
+    global current_image_index
+
+    # Display the initial image
+    display_image(images[current_image_index])
+
+    while True:
+        # Check if the up button is pressed
+        if not up_button.value:
+            print("Up Button Pushed")
+            current_image_index = (current_image_index + 1) % len(images)  # Cycle forward
+            display_image(images[current_image_index])
+            time.sleep(0.2)
+
+        # Check if the down button is pressed
+        if not down_button.value:
+            print("Down Button Pushed")
+            current_image_index = (current_image_index - 1) % len(images)  # Cycle backward
+            display_image(images[current_image_index])
+            time.sleep(0.2)
 
 if __name__ == "__main__":
-    # load image
-    image = Image.open("images/valentine.png")
-    image = transform(image)
-
-    # display image
-    display.image(image)
-    display.display()
+    main()
