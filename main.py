@@ -51,7 +51,7 @@ def transform(image):
 
     x = scaled_width // 2 - display.width // 2
     y = scaled_height // 2 - display.height // 2
-    image = image.crop((x, y, x + display.width, y + display.height))
+    image = image.crop((x, y, x + display.width, y + display.height)).convert("L")
 
     # Convert to Monochrome and Add dithering
     image = image.convert("1", dither=Image.FLOYDSTEINBERG)
