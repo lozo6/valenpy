@@ -83,7 +83,7 @@ y = scaled_height // 2 - display.height // 2
 image = image.crop((x, y, x + display.width, y + display.height)).convert("RGB")
 
 # Convert to Monochrome and Add dithering
-image = image.convert("1").convert("L")
+#image = image.convert("1").convert("L")
 
 # Display image.
 display.image(image)
