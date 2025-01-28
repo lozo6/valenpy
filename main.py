@@ -81,44 +81,45 @@ def main():
 
     current_image = 1  # Start with the first image
 
-    # Display the initial image
-    display_image(images[current_image])
+    try:
+        # Display the initial image
+        display_image(images[current_image])
 
-    while True:
-        if not up_button.value:  # Up button pressed
-            print("Up Button Pushed")
-            if current_image == 7:
-                current_image = 8  # Branch 7 -> 8
-            elif current_image == 7.1:
-                current_image = 8  # Branch 7.1 -> 8
-            elif current_image == 7.2:
-                current_image = 8  # Branch 7.2 -> 8
-            elif current_image < 7 or (current_image > 7.3 and current_image < 9):
-                # Move forward normally if not in branching logic
-                current_image += 1
+        while True:
+            if not up_button.value:  # Up button pressed
+                print("Up Button Pushed")
+                if current_image == 7:
+                    current_image = 8  # Branch 7 -> 8
+                elif current_image == 7.1:
+                    current_image = 8  # Branch 7.1 -> 8
+                elif current_image == 7.2:
+                    current_image = 8  # Branch 7.2 -> 8
+                elif current_image < 7 or (current_image > 7.3 and current_image < 9):
+                    # Move forward normally if not in branching logic
+                    current_image += 1
 
-            display_image(images[current_image])
-            time.sleep(0.2)  # Debounce delay
+                # Display the new image
+                display_image(images[current_image])
+                time.sleep(0.2)  # Debounce delay
 
-        if not down_button.value:  # Down button pressed
-            print("Down Button Pushed")
-            if current_image == 7:
-                current_image = 7.1  # Branch 7 -> 7.1
-            elif current_image == 7.1:
-                current_image = 7.2  # Branch 7.1 -> 7.2
-            elif current_image == 7.2:
-                current_image = 7.3  # Branch 7.2 -> 7.3 (end of branch)
-            elif current_image > 1 and (current_image <= 7 or current_image > 7.3):
-                # Move backward normally if not in branching logic
-                current_image -= 1
+            if not down_button.value:  # Down button pressed
+                print("Down Button Pushed")
+                if current_image == 7:
+                    current_image = 7.1  # Branch 7 -> 7.1
+                elif current_image == 7.1:
+                    current_image = 7.2  # Branch 7.1 -> 7.2
+                elif current_image == 7.2:
+                    current_image = 7.3  # Branch 7.2 -> 7.3 (end of branch)
+                elif current_image > 1 and (current_image <= 7 or current_image > 7.3):
+                    # Move backward normally if not in branching logic
+                    current_image -= 1
 
-            display_image(images[current_image])
-            time.sleep(0.2)  # Debounce delay
+                # Display the new image
+                display_image(images[current_image])
+                time.sleep(0.2)  # Debounce delay
 
-        # Exit logic for ending images (optional)
-        if current_image == 9 or current_image == 7.3:
-            print("End of sequence reached.")
-            break
+    except KeyboardInterrupt:
+        print("\nScript interrupted by user. Exiting cleanly.")
 
 if __name__ == "__main__":
     main()
