@@ -21,7 +21,10 @@ from adafruit_epd.ssd1680 import Adafruit_SSD1680  # pylint: disable=unused-impo
 from adafruit_epd.ssd1681 import Adafruit_SSD1681  # pylint: disable=unused-import
 from adafruit_epd.uc8151d import Adafruit_UC8151D  # pylint: disable=unused-import
 from adafruit_epd.ek79686 import Adafruit_EK79686  # pylint: disable=unused-import
+
+# added
 from adafruit_epd.ssd1680 import Adafruit_SSD1680Z
+from adafruit_epd.epd import Adafruit_EPD
 
 # create the spi device and pins we will need
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
