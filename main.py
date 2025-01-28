@@ -93,6 +93,9 @@ def main():
                     current_image = 8  # Branch 7.1 -> 8
                 elif current_image == 7.2:
                     current_image = 8  # Branch 7.2 -> 8
+                elif current_image == 9 or current_image == 7.3:
+                    # Reset to the beginning when reaching the end
+                    current_image = 1
                 elif current_image < 7 or (current_image > 7.3 and current_image < 9):
                     # Move forward normally if not in branching logic
                     current_image += 1
