@@ -32,10 +32,6 @@ down_button.switch_to_input(pull=digitalio.Pull.UP)
 # rotating for landscape
 display.rotation = 1
 
-# List of images to display
-images = ["images/1.png", "images/2.png"]
-current_image_index = 0
-
 # Function to transform image
 def transform(image):
     # Scale the image to the smaller screen dimension
@@ -67,25 +63,60 @@ def display_image(image_path):
     display.display()
 
 def main():
-    global current_image_index
+    # Define the image sequence and branching logic
+    images = {
+        1: "images/1.png",
+        2: "images/2.png",
+        3: "images/3.png",
+        4: "images/4.png",
+        5: "images/5.png",
+        6: "images/6.png",
+        7: "images/7.png",
+        7.1: "images/7.1.png",
+        7.2: "images/7.2.png",
+        7.3: "images/7.3.png",
+        8: "images/8.png",
+        9: "images/9.png",
+    }
+
+    current_image = 1  # Start with the first image
 
     # Display the initial image
-    display_image(images[current_image_index])
+    display_image(images[current_image])
 
     while True:
-        # Check if the up button is pressed
-        if not up_button.value:
+        if not up_button.value:  # Up button pressed
             print("Up Button Pushed")
-            current_image_index = (current_image_index + 1) % len(images)  # Cycle forward
-            display_image(images[current_image_index])
-            time.sleep(0.2)
+            if current_image == 7:
+                current_image = 8  # Branch 7 -> 8
+            elif current_image == 7.1:
+                current_image = 8  # Branch 7.1 -> 8
+            elif current_image == 7.2:
+                current_image = 8  # Branch 7.2 -> 8
+            elif current_image < 9:  # Normal sequence
+                current_image += 1
 
-        # Check if the down button is pressed
-        if not down_button.value:
+            display_image(images[current_image])
+            time.sleep(0.2)  # Debounce delay
+
+        if not down_button.value:  # Down button pressed
             print("Down Button Pushed")
-            current_image_index = (current_image_index - 1) % len(images)  # Cycle backward
-            display_image(images[current_image_index])
-            time.sleep(0.2)
+            if current_image == 7:
+                current_image = 7.1  # Branch 7 -> 7.1
+            elif current_image == 7.1:
+                current_image = 7.2  # Branch 7.1 -> 7.2
+            elif current_image == 7.2:
+                current_image = 7.3  # Branch 7.2 -> 7.3 (end of branch)
+            elif current_image > 1:  # Prevent going below the first image
+                current_image -= 1
+
+            display_image(images[current_image])
+            time.sleep(0.2)  # Debounce delay
+
+        # Exit logic for ending images (optional)
+        if current_image == 9 or current_image == 7.3:
+            print("End of sequence reached.")
+            break
 
 if __name__ == "__main__":
     main()
