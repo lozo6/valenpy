@@ -50,7 +50,7 @@ def transform(image):
 
 if __name__ == "__main__":
     # load image
-    image = Image.open("images/valentine.png")
+    image = Image.open("images/valentine_transparent.png")
     image = transform(image)
 
     # display image
