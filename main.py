@@ -93,7 +93,8 @@ def main():
                 current_image = 8  # Branch 7.1 -> 8
             elif current_image == 7.2:
                 current_image = 8  # Branch 7.2 -> 8
-            elif current_image < 9:  # Normal sequence
+            elif current_image < 7 or (current_image > 7.3 and current_image < 9):
+                # Move forward normally if not in branching logic
                 current_image += 1
 
             display_image(images[current_image])
@@ -107,7 +108,8 @@ def main():
                 current_image = 7.2  # Branch 7.1 -> 7.2
             elif current_image == 7.2:
                 current_image = 7.3  # Branch 7.2 -> 7.3 (end of branch)
-            elif current_image > 1:  # Prevent going below the first image
+            elif current_image > 1 and (current_image <= 7 or current_image > 7.3):
+                # Move backward normally if not in branching logic
                 current_image -= 1
 
             display_image(images[current_image])
